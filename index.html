@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Soundmark Demo</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <style>
+#map {
+    height: 100%;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <!-- BEGIN Polyfills for IE -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8.1.0/dist/polyfill.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0.0/dist/fetch.umd.min.js"></script>
+        <!-- END Polyfills -->
+        <script>
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'));
+    var infowindow = new google.maps.InfoWindow();
+    fetch('soundmarks.json').then(function(response) {
+        response.json().then(function(marks) {
+            var bounds = new google.maps.LatLngBounds();
+            marks.forEach(function(mark) {
+                var latLng = { lat: mark.lat, lng: mark.lng };
+                bounds.extend(latLng);
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    title: mark.location
+                });
+                var content = '<h1>' + mark.title + '</h1>';
+                if (mark.sounds) {
+                    mark.sounds.forEach(function(sound) {
+                        content += '<h2>' + sound.title + '</h2>';
+                        content += '<audio controls><source src="' + sound.url + '"/></audio>';
+                    });
+                }
+                marker.addListener('click', function() {
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                });
+            });
+            map.fitBounds(bounds);
+        });
+    });
+}
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=MAPS_API_KEY&callback=initMap" async defer></script>
+    </body>
+</html>
