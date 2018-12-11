@@ -25,7 +25,8 @@ To run the sample proceed as follows:
 
 1. Install Node.js
 2. Clone this repository
-3. Run the following command: node server.js <your MAPS_API_KEY>
+3. Run the following command: node server.js YOUR_MAPS_API_KEY
+4. Visit http://localhost:8080 in your Browser
 
 ## Use
 
