@@ -25,13 +25,16 @@ To run the sample proceed as follows:
 
 1. Install Node.js
 2. Clone this repository
-3. Run the following command: node server.js YOUR_MAPS_API_KEY
+3. Run the following command: node server.js "YOUR_MAPS_API_KEY"
 4. Visit http://localhost:8080 in your Browser
 
 ## Use
 
-To use soundmarks on your site you have to host the HTML/CSS/JS code and the
-soundmarks.json file on your HTTP server (e.g. Apache).
+To use soundmarks on your site you have to host the HTML/CSS/JS (index.html)
+code and the soundmarks.json file on your HTTP server (e.g. Apache).
+
+Make sure to replace the MAPS_API_KEY placeholder in index.html with your
+actual API key for Google Maps.
 
 ## Browser compatibility
 
